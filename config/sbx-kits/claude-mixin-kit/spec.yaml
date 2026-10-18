@@ -1,0 +1,29 @@
+schemaVersion: "2"
+kind: mixin
+name: custom-claude-mixin
+displayName: Custom Claude Mixin
+requires:
+  agent: claude
+
+environment:
+  variables:
+    OPENSPEC_TELEMETRY: 0
+
+args:
+  host_home:
+    required: true
+    description: Host $HOME, used to locate the openspec store
+# sbx run claude --kit ~/.config/sbx-kits/claude-mixin-kit --kit-arg host_home="$HOME"
+
+setup:
+  install:
+    - command: "npm install -g --prefix /usr/local @fission-ai/openspec@latest"
+      user: "0" # root
+  startup:
+    - command:
+      - "/bin/bash"
+      - "-lc"
+      - "/usr/local/bin/openspec store register ${{ kit.args.host_home }}/src/openspec"
+      user: "1000" # agent
+
+
