@@ -24,7 +24,13 @@ setup:
     - command:
       - "/bin/bash"
       - "-lc"
-      - "/usr/local/bin/openspec store register ${{ kit.args.host_home }}/src/openspec"
+      - |
+        store="${{ kit.args.host_home }}/src/openspec"
+        if [ -d "$store" ]; then
+          /usr/local/bin/openspec store register "$store"
+        else
+          echo "openspec store $store not mounted, skipping register" >&2
+        fi
       user: "1000" # agent
 
 
