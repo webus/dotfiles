@@ -14,6 +14,7 @@ args:
     required: true
     description: Host $HOME, used to locate the openspec store
 # sbx run claude --kit ~/.config/sbx-kits/claude-mixin-kit --kit-arg host_home="$HOME"
+# alias claude-sbx='sbx run claude --kit ~/.config/sbx-kits/claude-mixin-kit . ~/src/openspec ~/src/backend/'
 
 setup:
   install:
